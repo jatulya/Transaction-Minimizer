@@ -1,10 +1,10 @@
-import SplitBillForm from './components/Form'
+import Form from './components/Form/Form'
 
 function App() {
 
   return (
     <>
-    <SplitBillForm />
+    <Form />
     </>
   )
 }
