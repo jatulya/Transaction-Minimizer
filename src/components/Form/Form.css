@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
 .form-container {
   max-width: 900px;
   margin: 30px auto;
@@ -47,7 +52,7 @@
 
 .form-title {
   text-align: center;
-  color: #8B4513; /* Saddle Brown for title */
+  color: #8B4513; /* Saddle Brown for title 
   margin-bottom: 20px;
 }
 
@@ -58,48 +63,48 @@
 .input-group label {
   display: block;
   margin-bottom: 5px;
-  color: #6B4423; /* Dark Brown for labels */
+  color: #6B4423; /* Dark Brown for labels 
   font-weight: 600;
 }
 
 .input-field {
   width: 100%;
   padding: 10px;
-  border: 2px solid #D2691E; /* Chocolate border */
+  border: 2px solid #D2691E; /* Chocolate border 
   border-radius: 8px;
-  background-color: #FFF9E6; /* Very light cream background */
-  color: #5D4037; /* Deep brown text color */
+  background-color: #FFF9E6; /* Very light cream background 
+  color: #5D4037; /* Deep brown text color 
   transition: border-color 0.3s ease;
 }
 
 .input-field::placeholder {
-  color: #8D6E63; /* Soft brown placeholder */
+  color: #8D6E63; /* Soft brown placeholder 
 }
 
 .input-field:focus {
   outline: none;
-  border-color: #8B4513; /* Saddle Brown when focused */
+  border-color: #8B4513; /* Saddle Brown when focused 
   box-shadow: 0 0 5px rgba(139, 69, 19, 0.3);
 }
 
 .person-section {
-  background-color: #FFF3E0; /* Light warm background */
+  background-color: #FFF3E0; /* Light warm background 
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 15px;
-  border: 1px solid #D2691E; /* Chocolate border */
+  border: 1px solid #D2691E; /* Chocolate border 
 }
 
 .person-section h3 {
-  color: #8B4513; /* Saddle Brown for section headers */
+  color: #8B4513; /* Saddle Brown for section headers 
   margin-bottom: 10px;
 }
 
 .submit-button {
   width: 100%;
   padding: 12px;
-  background-color: #8B4513; /* Saddle Brown */
-  color: #FFF5E1; /* Light cream text */
+  background-color: #8B4513; /* Saddle Brown 
+  color: #FFF5E1; /* Light cream text
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -107,11 +112,11 @@
 }
 
 .submit-button:hover {
-  background-color: #6B4423; /* Darker brown on hover */
+  background-color: #6B4423; /* Darker brown on hover 
 }
 
-/* Additional contrast and readability */
+/* Additional contrast and readability 
 body {
-  background-color: #FDF2E9; /* Very light background */
-  color: #5D4037; /* Deep brown for overall text */
-}
+  background-color: #FDF2E9; /* Very light background 
+  color: #5D4037; /* Deep brown for overall text 
+}*/

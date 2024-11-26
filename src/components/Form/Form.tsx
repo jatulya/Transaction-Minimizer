@@ -4,6 +4,9 @@ import { PersonData } from '../types/interfaces';
 
 const Form: React.FC = () => {
   const [numberOfPeople, setNumberOfPeople] = useState<number>(0);
+  const [name, setName] = useState<string>("")
+  const [amount, setAmount] = useState<string>("")
+  const [items, setItems] = useState<string>("")
   const [peopleData, setPeopleData] = useState<PersonData[]>([]);
 
   const handleNumberOfPeopleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,23 +18,27 @@ const Form: React.FC = () => {
       Array(count).fill(null).map(() => ({
         name: '',
         amountPaid: 0,
-        itemsEaten: ''
+        itemsEaten: []
       }))
     );
   };
 
   const handlePersonDataChange = (
+    e: React.KeyboardEvent<HTMLInputElement>,
     index: number, 
     field: keyof PersonData, 
     value: string
   ) => {
-    const updatedPeopleData = [...peopleData];
-    updatedPeopleData[index] = {
-      ...updatedPeopleData[index],
-      [field]: field === 'amountPaid' ? parseFloat(value) : value
+
+    if (e.key=='Enter'){
+      const updatedPeopleData = [...peopleData];
+      updatedPeopleData[index] = {
+        ...updatedPeopleData[index],
+        [field]: field === 'amountPaid' ? parseFloat(value) : field =='itemsEaten' ? value.split(',') : value
+      };
+      setPeopleData(updatedPeopleData);
     };
-    setPeopleData(updatedPeopleData);
-  };
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,7 +71,8 @@ const Form: React.FC = () => {
                 <input
                   type="text"
                   value={person.name}
-                  onChange={(e) => handlePersonDataChange(index, 'name', e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
+                  onKeyDown={(e)=>handlePersonDataChange(e,index, 'name', name)}
                   className="input-field"
                   placeholder='Enter name'
                   required
@@ -75,7 +83,8 @@ const Form: React.FC = () => {
                 <input
                   type="number"
                   value={person.amountPaid}
-                  onChange={(e) => handlePersonDataChange(index, 'amountPaid', e.target.value)}
+                  onChange={(e) => setAmount(e.target.value)}
+                  onKeyDown={(e)=>handlePersonDataChange(e,index, 'amountPaid', amount)}
                   className="input-field"
                   min="0"
                   step="1"
@@ -87,7 +96,8 @@ const Form: React.FC = () => {
                 <input
                   type="text"
                   value={person.itemsEaten}
-                  onChange={(e) => handlePersonDataChange(index, 'itemsEaten', e.target.value)}
+                  onChange={(e) => setItems(e.target.value)}
+                  onKeyDown={(e)=>handlePersonDataChange(e,index, 'itemsEaten', items)}
                   className="input-field"
                   placeholder="e.g., pizza, salad, drink"
                   required
