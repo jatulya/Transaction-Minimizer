@@ -1,31 +1,37 @@
-import { CalcPropType, Transaction } from '../types/interfaces'
+import { CalcPropType, PersonData, Transaction } from '../types/interfaces'
 import { getItemPrice } from '../Static/Menu'
 import { MaxHeap, MinHeap } from './Heap'
 
 const Calculation: React.FC<CalcPropType> = ({ peopleData }) => {
+  let deepCopy: PersonData[] = JSON.parse(JSON.stringify(peopleData));
   const transactions: Transaction[] = []
 
-  for (const creditor of peopleData) {
-    const creditorID = creditor.id
-    const paidLoc = creditor.paidAt
+  for (const creditor of deepCopy) {
+    const creditorID = creditor.id;
+    const paidLoc = creditor.paidAt;
 
-    for (const t2 of peopleData) {
-      if (t2.id === creditorID) continue
+    for (const t2 of deepCopy) {
+        if (t2.id === creditorID) continue; // Skip if it's the same person
 
-      for (const item of t2.itemsEaten) {
-        if (item.eatenAt === paidLoc) {
-          let itemPrice = getItemPrice(paidLoc, item.item)
-          const sharedWith = item.sharedWith > 0 ? item.sharedWith : 1; // Avoid division by zero
-
-          transactions.push({
-            debtor: t2.id,
-            creditor: creditorID,
-            amount: itemPrice / sharedWith
-          })
+        for (const item of t2.itemsEaten) {
+            if (item.eatenAt === paidLoc) {
+                let itemPrice = getItemPrice(paidLoc, item.item);
+                const sharedWith = item.sharedWith > 0 ? item.sharedWith : 1; // Avoid division by zero
+                const amountOwed = itemPrice / sharedWith;
+                
+                if (creditor.amountPaid - amountOwed <0) continue;
+                
+                transactions.push({
+                    debtor: t2.id,
+                    creditor: creditorID,
+                    amount: amountOwed,
+                });
+                creditor.amountPaid -= amountOwed;
+                break; // Exit after processing one matching item
+            }
         }
-      }
     }
-  }
+}
 
   console.log("Transactions :", transactions);
 
@@ -80,11 +86,19 @@ const Calculation: React.FC<CalcPropType> = ({ peopleData }) => {
 
   return (
     <div>
-        <h1>Transaction Minimizer</h1>
+        <h1>Transact Minimizer</h1>
         <ul>
             {transactionsList.map((result, index) => (
                 <li key={index}>{result}</li>
             ))}
+        </ul>
+
+        <h1>Transactions</h1>
+        <ul>
+          {transactions.map((t,key)=>(
+            <li key={key}>Person {t.debtor} owes Person {t.creditor} Rs. {t.amount}</li>
+          ))
+          }
         </ul>
     </div>
   );
